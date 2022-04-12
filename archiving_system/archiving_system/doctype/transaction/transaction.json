@@ -1,31 +1,30 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
+ "autoname": "naming_series:",
  "creation": "2022-04-10 23:24:00.301336",
+ "description": "DA-ODI-.YYYY.-.####\nDA-ODO-.YYYY.-.####",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "seriesno",
+  "naming_series",
   "title",
   "target",
-  "date",
-  "content",
+  "posting_date",
   "internal_department",
+  "column_break_7",
+  "is_disabled",
   "content_template",
-  "docment_type",
+  "document_type",
   "document_status",
-  "assignment"
+  "assignment",
+  "content_section",
+  "amended_from",
+  "content"
  ],
  "fields": [
-  {
-   "fieldname": "seriesno",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "SeriesNo.",
-   "options": "DA-ODI-YYYY-####\nDA-ODO-YYYY-####",
-   "reqd": 1
-  },
   {
    "fieldname": "title",
    "fieldtype": "Data",
@@ -37,13 +36,9 @@
    "label": "Target"
   },
   {
-   "fieldname": "date",
-   "fieldtype": "Data",
-   "label": "Date"
-  },
-  {
+   "depends_on": "eval:doc.document_type=='Outcoming'",
    "fieldname": "content",
-   "fieldtype": "Data",
+   "fieldtype": "Text Editor",
    "label": "Content"
   },
   {
@@ -53,16 +48,11 @@
    "options": "Department"
   },
   {
+   "depends_on": "eval:doc.document_type=='Outcoming'",
    "fieldname": "content_template",
    "fieldtype": "Link",
    "label": "Content Template",
-   "options": "Web Template"
-  },
-  {
-   "fieldname": "docment_type",
-   "fieldtype": "Select",
-   "label": "Docment Type",
-   "options": "Incoming\nOutcoming"
+   "options": "Content Templates"
   },
   {
    "fieldname": "document_status",
@@ -71,15 +61,61 @@
    "options": "Draft\nComplate\nCanceled"
   },
   {
+   "depends_on": "eval:doc.document_type=='Outcoming'",
    "fieldname": "assignment",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Assignment",
    "options": "Employee"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_disabled",
+   "fieldtype": "Check",
+   "label": "Is Disabled"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Transaction",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "SeriesNo.",
+   "options": "DA-ODI-.YYYY.-.####\nDA-ODO-.YYYY.-.####",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "content_section",
+   "fieldtype": "Section Break",
+   "label": "Content"
+  },
+  {
+   "fieldname": "document_type",
+   "fieldtype": "Select",
+   "label": "Document Type",
+   "options": "Incoming\nOutcoming"
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2022-04-10 23:24:00.301336",
+ "modified": "2022-04-12 17:04:08.926730",
  "modified_by": "Administrator",
  "module": "Archiving System",
  "name": "Transaction",
@@ -95,6 +131,29 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive User",
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Archive Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
